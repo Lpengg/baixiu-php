@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
   if (isset($_GET['slug'])) {
     $slug=$_GET['slug'];
     $list=xiu_fetch("SELECT posts.*,categories.name,users.email FROM posts,categories,users where posts.category_id=categories.id and posts.status='published' and categories.slug='{$slug}' and users.id=posts.user_id ORDER BY posts.created DESC LIMIT 0,5;");
-    
+    var_dump($list);
   }
 }
 

@@ -8,7 +8,6 @@
 require_once 'functions.php';
 $categories=json_decode(xiu_fetch_one("select val from options where site='nav_menus';")['val'],true);
 
-
 ?>
 
  <div class="topnav">

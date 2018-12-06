@@ -24,7 +24,7 @@ define('XIU_DB_PASS', '123456');
 /**
  * 数据库名称
  */
-define('XIU_DB_NAME', 'xiaoxiongxu');
+define('XIU_DB_NAME', 'baixiu');
 
 /**
  * 
