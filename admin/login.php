@@ -10,15 +10,15 @@ function login(){
   //1.接收数据并校验
   //2.持久化
   //3.响应
-  if (empty($_POST['email'])) {
-    $GLOBALS['message']='邮箱错误';
+  if (empty($_POST['username'])) {
+    $GLOBALS['message']='用户名错误';
     return;
   }
   if (empty($_POST['password'])) {
     $GLOBALS['message']='密码错误';
     return;
   }
-  $email=$_POST['email'];
+  $username=$_POST['username'];
   $password=$_POST['password'];
 
   //客户端提交过来完整的表单信息就应该开始对其进行数据校验
@@ -27,7 +27,7 @@ function login(){
   if(!$conn){
     exit('<h1>连接数据库失败</h1>');
   }
-  $query=mysqli_query($conn,"select * from users where email = '{$email}' limit 1;");
+  $query=mysqli_query($conn,"select * from users where username = '{$username}' limit 1;");
   if (!$query) {
     $GLOBALS['message']='登录失败请重试';
     return;
@@ -35,7 +35,7 @@ function login(){
   
   $user=mysqli_fetch_assoc($query);
   var_dump($user);*/
-$user = xiu_fetch("select * from users where email = '{$email}' limit 1;")[0];
+$user = xiu_fetch("select * from users where username = '{$username}' limit 1;")[0];
 
 if ($user==='NULL') {
     $GLOBALS['message']='登录失败请重试';
@@ -43,12 +43,12 @@ if ($user==='NULL') {
   }
 
   if (!$user) {
-    $GLOBALS['message']='邮箱与密码不匹配';
+    $GLOBALS['message']='用户名与密码不匹配';
     return;
   }
 
   if ($user['password']!=$password) {
-    $GLOBALS['message']='邮箱与密码不匹配';
+    $GLOBALS['message']='用户名与密码不匹配';
     return;
   }
 
@@ -95,14 +95,15 @@ if ($_SERVER['REQUEST_METHOD']==='GET'&&isset($_GET['action'])&&$_GET['action']=
       <?php endif ?>
      
       <div class="form-group">
-        <label for="email" class="sr-only">邮箱</label>
-        <input id="email" name="email" type="email" class="form-control" placeholder="邮箱" autofocus value="<?php echo empty($_POST['email'])? '':$_POST['email']; ?>">
+        <label for="username" class="sr-only">用户名</label>
+        <input id="username" name="username" type="username" class="form-control" placeholder="邮箱" autofocus value="<?php echo empty($_POST['username'])? '':$_POST['username']; ?>">
       </div>
       <div class="form-group">
         <label for="password" class="sr-only">密码</label>
         <input id="password" name="password" type="password" class="form-control" placeholder="密码">
       </div>
       <button class="btn btn-primary btn-block">登 录</button>
+      <a href="../index.php"><div class="btn btn-primary btn-block">返 回</div></a>
     </form>
   </div>
   <script src="/static/assets/vendors/jquery/jquery.js"></script>
@@ -117,18 +118,18 @@ if ($_SERVER['REQUEST_METHOD']==='GET'&&isset($_GET['action'])&&$_GET['action']=
       //-事情：获取文本框中填写的邮箱对应的头像地址，展示代上面的img元素上
       
       //失去焦点事件，并且能够拿到文本框中填写的邮箱时
-      var emailFormat=/^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i;
-      $('#email').on('blur',function () {
+      var usernameFormat=/^[a-z][a-zA-Z0-9]{4,7}$/;
+      $('#username').on('blur',function () {
         var value=$(this).val();
         //忽略掉文本框为空或者不是一个邮箱
-        if (!value || !emailFormat.test(value)) return;
+        if (!value || !usernameFormat.test(value)) return;
 
         //用户输入了一个合理的邮箱地址
         //获取这个邮箱对应的头像地址
         //因为客户端的js无法直接操作数据库，应该通过js发送ajax请求告诉服务端的某个接口
         //让这个接口帮助客户端获取头像
         
-        $.get('/admin/api/avatar.php',{email:value},function (res) {
+        $.get('/admin/api/avatar.php',{username:value},function (res) {
           //希望res=>这个邮箱对应的头像地址
           if (!res) return;
           //展示到img元素上

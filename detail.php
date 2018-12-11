@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
           <a href="javascript:;"><?php echo $post['title']; ?></a>
         </h2>
         <div class="meta">
-          <span><?php echo $post['email']; ?> 发布于 <?php echo $post['created']; ?></span>
+          <span><?php echo $post['username']; ?> 发布于 <?php echo $post['created']; ?></span>
           <span>分类: <a href="/list.php?slug=<?php echo $_GET['slug']; ?>"><?php echo $post['name']; ?></a></span>
           <span>阅读: (2421)</span>
           <span>评论: (143)</span>

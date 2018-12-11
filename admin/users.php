@@ -7,18 +7,18 @@ xiu_get_current_user();
 
 function add_user(){
   //数据校验
-  if (empty($_POST['email']) ||empty($_POST['slug']) ||empty($_POST['nickname']) ||empty($_POST['password'])) {
+  if (empty($_POST['username']) ||empty($_POST['role']) ||empty($_POST['nickname']) ||empty($_POST['password'])) {
      $GLOBALS['success']=false;
     $GLOBALS['message']='请完整填写表单';
     return;
   }
 
-  $email = $_POST['email'];
-  $slug = $_POST['slug'];
+  $username = $_POST['username'];
+  $role = $_POST['role'];
   $nickname = $_POST['nickname'];
   $password = $_POST['password'];
   
-  $rows=xiu_execute("insert into users values(null,'{$slug}','{$email}','{$password}','{$nickname}',null,null,'activated')");
+  $rows=xiu_execute("insert into users values(null,'{$username}','{$password}','{$role}','{$nickname}','/static/uploads/avatars/avatar.jpg','activated','MAKE IT BETTER!')");
   $rows <= 0 ? $GLOBALS['success']=false:'';
   $GLOBALS['message']= $rows <= 0 ? '添加失败':'添加成功';
 }
@@ -26,12 +26,12 @@ function add_user(){
 function edit_user(){
   global $current_edit_user;
   $id=$current_edit_user['id'];
-  $email=empty($_POST['email']) ? $current_edit_user['email']:$_POST['email'];
-  $slug=empty($_POST['slug']) ? $current_edit_user['slug']:$_POST['slug'];
+  $username=empty($_POST['username']) ? $current_edit_user['username']:$_POST['username'];
+  $role=empty($_POST['role']) ? $current_edit_user['role']:$_POST['role'];
   $nickname=empty($_POST['nickname']) ? $current_edit_user['nickname']:$_POST['nickname'];
   $password=empty($_POST['password']) ? $current_edit_user['password']:$_POST['password'];
 
-  $affect_row=xiu_execute("update users set email='{$email}',slug='{$slug}',nickname='{$nickname}',password='{$password}' where id={$id};");
+  $affect_row=xiu_execute("update users set username='{$username}',role='{$role}',nickname='{$nickname}',password='{$password}' where id={$id};");
   $affect_row <= 0 ? $GLOBALS['success']=false:'';
   $GLOBALS['message']= $affect_row <= 0 ? '编辑失败':'编辑成功';
 
@@ -92,16 +92,20 @@ $users=xiu_fetch("select * from users");
 <!-- 编辑和添加用户 -->
           <?php if (isset($current_edit_user)): ?>
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $current_edit_user['id']; ?>" method="post" autocomplete="off">
-            <h2>编辑《<?php echo $current_edit_user['email']; ?>》</h2>
+            <h2>编辑《<?php echo $current_edit_user['username']; ?>》</h2>
             <div class="form-group">
-              <label for="email">邮箱</label>
-              <input id="email" class="form-control" name="email" type="email" placeholder="<?php echo $current_edit_user['email']; ?>">
+              <label for="username">账号</label>
+              <input id="username" class="form-control" name="username" type="username" placeholder="<?php echo $current_edit_user['username']; ?>">
             </div>
-            <div class="form-group">
-              <label for="slug">别名</label>
-              <input id="slug" class="form-control" name="slug" type="text" placeholder="<?php echo $current_edit_user['slug']; ?>">
-              <p class="help-block">https://zce.me/author/<strong>slug</strong></p>
-            </div>
+
+          <div class="form-group">
+            <label for="role">角色</label>
+            <select id="role" class="form-control" name="role">
+              <option value="author">普通用户</option>
+              <option value="admin" <?php echo $current_edit_user['role']==='admin'? 'selected="selected"':''; ?>>管理员</option>
+            </select>
+          </div>
+
             <div class="form-group">
               <label for="nickname">昵称</label>
               <input id="nickname" class="form-control" name="nickname" type="text" placeholder="<?php echo $current_edit_user['nickname']; ?>">
@@ -118,14 +122,16 @@ $users=xiu_fetch("select * from users");
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off">
             <h2>添加新用户</h2>
             <div class="form-group">
-              <label for="email">邮箱</label>
-              <input id="email" class="form-control" name="email" type="email" placeholder="邮箱">
+              <label for="username">账号</label>
+              <input id="username" class="form-control" name="username" type="username" placeholder="账号">
             </div>
             <div class="form-group">
-              <label for="slug">别名</label>
-              <input id="slug" class="form-control" name="slug" type="text" placeholder="slug">
-              
-            </div>
+            <label for="role">角色</label>
+            <select id="role" class="form-control" name="role">
+              <option value="author">普通用户</option>
+              <option value="admin">管理员</option>
+            </select>
+          </div>
             <div class="form-group">
               <label for="nickname">昵称</label>
               <input id="nickname" class="form-control" name="nickname" type="text" placeholder="昵称">
@@ -150,8 +156,8 @@ $users=xiu_fetch("select * from users");
                <tr>
                 <th class="text-center" width="40"><input type="checkbox"></th>
                 <th class="text-center" width="80">头像</th>
-                <th>邮箱</th>
-                <th>别名</th>
+                <th>账号</th>
+                <th>角色</th>
                 <th>昵称</th>
                 <th>状态</th>
                 <th class="text-center" width="100">操作</th>
@@ -163,8 +169,8 @@ $users=xiu_fetch("select * from users");
                 <tr>
                 <td class="text-center"><input type="checkbox"  data-id="<?php echo $item['id']; ?>"></td>
                 <td class="text-center"><img class="avatar" src="<?php echo $item['avatar']; ?>"></td>
-                <td><?php echo $item['email']; ?></td>
-                <td><?php echo $item['slug']; ?></td>
+                <td><?php echo $item['username']; ?></td>
+                <td><?php echo $item['role']==='admin'? '管理员':'普通用户'; ?></td>
                 <td><?php echo $item['nickname']; ?></td>
                 <td><?php echo $item['status']==='activated' ? '激活':'未激活'; ?></td>
                 <td class="text-center">

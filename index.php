@@ -1,6 +1,7 @@
 <?php 
 require_once 'functions.php';
 $swipe_wrapper=json_decode(xiu_fetch_one("select * from options where site='home_slides';")['val'],true);
+$site_footer = xiu_fetch_one("select val from options where id = 6;");
 
 
  ?>
@@ -216,7 +217,7 @@ $swipe_wrapper=json_decode(xiu_fetch_one("select * from options where site='home
       </div>
     </div>
     <div class="footer">
-      <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
+      <p><?php echo $site_footer['val']; ?></p>
     </div>
   </div>
   

@@ -7,7 +7,6 @@ $current_user=$_SESSION['current_login_user'];
 
 function edit_user($current_id){
   if (empty($_POST['avatar']) ||
-      empty($_POST['slug']) ||
       empty($_POST['nickname']) ||
       empty($_POST['bio'])) {
     $GLOBALS['message']='请完整填写信息';
@@ -15,11 +14,11 @@ function edit_user($current_id){
   }
 
   $avatar=$_POST['avatar'];
-  $slug=$_POST['slug'];
+
   $nickname=$_POST['nickname'];
   $bio=$_POST['bio'];
   $id=$current_id;
-  $affect_rows=xiu_execute("update users set avatar='{$avatar}',slug='{$slug}',nickname='{$nickname}',bio='{$bio}' where id={$id};");
+  $affect_rows=xiu_execute("update users set avatar='{$avatar}',nickname='{$nickname}',bio='{$bio}' where id={$id};");
   if ($affect_rows <= 0) {
     $GLOBALS['message']='修改失败';
     return;
@@ -86,19 +85,13 @@ $user=xiu_fetch_one("select * from users where id=".$current_user['id']);
           </div>
         </div>
         <div class="form-group">
-          <label for="email" class="col-sm-3 control-label">邮箱</label>
+          <label for="username" class="col-sm-3 control-label">账号</label>
           <div class="col-sm-6">
-            <input id="email" class="form-control" name="email" type="type" value="<?php echo $user['email']; ?>" placeholder="邮箱" readonly>
-            <p class="help-block">登录邮箱不允许修改</p>
+            <input id="username" class="form-control" name="username" type="type" value="<?php echo $user['username']; ?>" placeholder="账号" readonly>
+            <p class="help-block">登录账号不允许修改</p>
           </div>
         </div>
-        <div class="form-group">
-          <label for="slug" class="col-sm-3 control-label">别名</label>
-          <div class="col-sm-6">
-            <input id="slug" class="form-control" name="slug" type="type" value="<?php echo $user['slug']; ?>" placeholder="slug">
-            <!-- <p class="help-block">https://zce.me/author/<strong>zce</strong></p> -->
-          </div>
-        </div>
+      
         <div class="form-group">
           <label for="nickname" class="col-sm-3 control-label">昵称</label>
           <div class="col-sm-6">

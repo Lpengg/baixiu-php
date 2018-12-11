@@ -3,8 +3,8 @@ require_once 'functions.php';
 if ($_SERVER['REQUEST_METHOD']==='GET') {
   if (isset($_GET['slug'])) {
     $slug=$_GET['slug'];
-    $list=xiu_fetch("SELECT posts.*,categories.name,users.email FROM posts,categories,users where posts.category_id=categories.id and posts.status='published' and categories.slug='{$slug}' and users.id=posts.user_id ORDER BY posts.created DESC LIMIT 0,5;");
-    var_dump($list);
+    $list=xiu_fetch("SELECT posts.*,categories.name,users.username FROM posts,categories,users where posts.category_id=categories.id and posts.status='published' and categories.slug='{$slug}' and users.id=posts.user_id ORDER BY posts.created DESC LIMIT 0,5;");
+   
   }
 }
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
             <a href="/detail.php?slug=<?php echo $_GET['slug']; ?>&id=<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a>
           </div>
           <div class="main">
-            <p class="info"><?php echo $item['email']; ?> 发表于 <?php echo $item['created']; ?></p>
+            <p class="info"><?php echo $item['username']; ?> 发表于 <?php echo $item['created']; ?></p>
             <p class="brief"><?php echo $item['content']; ?></p>
             <p class="extra">
               <span class="reading">阅读(3406)</span>
