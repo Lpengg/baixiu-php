@@ -32,6 +32,12 @@ function xiu_get_current_user () {
   return $_SESSION['current_login_user'];
 }
 
+function xiu_get_index_user(){
+	if (!empty($_SESSION['current_login_user'])) {
+  	return $_SESSION['current_login_user'];
+	}
+}
+
 /**
  * 通过一个数据库查询获取数据
  * @return [索引数组] $result

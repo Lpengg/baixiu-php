@@ -289,7 +289,7 @@ $categories=xiu_fetch("select * from categories;");
  <script>
   
     $(function () {
-
+     
        if ($('#feature').attr('src')) {
           $url=$('#feature').attr('src');
            $('#feature').siblings('.thumbnail').attr('src', $url).fadeIn()

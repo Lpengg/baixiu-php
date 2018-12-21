@@ -1,6 +1,23 @@
+<?php 
+require_once 'functions.php';
+$current_user=xiu_get_index_user();
+
+?>
   <div class="aside">
-    
-    <div class="profile">
+    <?php if (isset($current_user)): ?>
+
+       <div class="profile">
+        <div class="avatar"> 
+          <a href="/admin/index.php"><img  src="<?php echo $current_user['avatar']; ?>"></a>
+          <span></span>
+        </div>
+        <h3 class="name"><a href="/admin/index.php"><?php echo $current_user['nickname']; ?></a></h3>
+        <a class="login" href="/admin/login.php">退出</a>
+       
+      </div>
+     <?php else: ?>
+
+      <div class="profile">
         <div class="avatar"> 
           <a href="#"><img  src="/static/assets/img/default.png"></a>
           <span></span>
@@ -9,6 +26,10 @@
         <a class="login" href="/admin/login.php">登录</a>
        <a class="register" href="/register.php">注册</a>
       </div>
+
+    <?php endif ?>
+    
+
     <div class="widgets">
         <h4>搜索</h4>
         <div class="body search">

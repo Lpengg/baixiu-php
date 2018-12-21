@@ -1,5 +1,11 @@
 <?php 
 require_once 'functions.php';
+
+if (isset($_SESSION['views'])) {
+  unset($_SESSION['views']);
+}
+
+
 $swipe_wrapper=json_decode(xiu_fetch_one("select * from options where site='home_slides';")['val'],true);
 $site_footer = xiu_fetch_one("select val from options where id = 6;");
 

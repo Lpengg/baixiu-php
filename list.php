@@ -1,10 +1,14 @@
 <?php 
 require_once 'functions.php';
+
+if (isset($_SESSION['views'])) {
+  unset($_SESSION['views']);
+}
+
 if ($_SERVER['REQUEST_METHOD']==='GET') {
   if (isset($_GET['slug'])) {
     $slug=$_GET['slug'];
     $list=xiu_fetch("SELECT posts.*,categories.name,users.username FROM posts,categories,users where posts.category_id=categories.id and posts.status='published' and categories.slug='{$slug}' and users.id=posts.user_id ORDER BY posts.created DESC LIMIT 0,5;");
-   
   }
 }
 
@@ -38,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
             <p class="info"><?php echo $item['username']; ?> 发表于 <?php echo $item['created']; ?></p>
             <p class="brief"><?php echo $item['content']; ?></p>
             <p class="extra">
-              <span class="reading">阅读(3406)</span>
+              <span class="reading">阅读(<?php echo $item['views']; ?>)</span>
               <span class="comment">评论(0)</span>
               <a href="javascript:;" class="like">
                 <i class="fa fa-thumbs-up"></i>
-                <span>赞(167)</span>
+                <span>赞(<?php echo $item['likes']; ?>)</span>
               </a>
               <a href="javascript:;" class="tags">
                 分类：<span>星球大战</span>
