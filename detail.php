@@ -24,7 +24,6 @@ if (!isset($_SESSION['views'])){
 }
 
 
-
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -33,13 +32,36 @@ if (!isset($_SESSION['views'])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>阿里百秀-发现生活，发现美!</title>
   
-  <link rel="stylesheet" href="/static/assets/css/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/static/assets/vendors/bootstrap/css/bootstrap.min.modify.css">  --> 
+  <link rel="stylesheet" type="text/css" href="/static/assets/vendors/login-jiaoben/css/index.css"> 
+  <link href="/static/assets/vendors/login-jiaoben/css/signin.css" rel="stylesheet"> 
+
+  
   <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
   <link type="text/css" rel="stylesheet" href="/static/assets/vendors/dianzan/Css/demo.css">
   <script type="text/javascript" src="/static/assets/vendors/dianzan/Js/jquery-1.8.3.min.js"></script>
-  <link rel="stylesheet" href="/static/assets/vendors/comments/css/comment.css">
+  
   <link rel="stylesheet" href="/static/assets/vendors/comments/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/static/assets/vendors/comments/css/bootstrap.css">
+  <link rel="stylesheet" href="/static/assets/css/style.css">
+  <link rel="stylesheet" href="/static/assets/vendors/comments/css/comment.css">
+  <style>
+    textarea{
+      -webkit-appearance: textarea;
+      background-color: white;
+      -webkit-rtl-ordering: logical;
+      flex-direction: column;
+      resize: auto;
+      cursor: text;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      border-width: 1px;
+      border-style: solid;
+      border-color: rgb(169, 169, 169);
+      border-image: initial;
+      padding: 2px;
+    }
+  </style>
+
 </head>
 <body>
   <div class="wrapper">
@@ -111,7 +133,7 @@ if (!isset($_SESSION['views'])){
       </div>
 
       <div class="container" style="width: 900px;">
-          <div class="commentbox">
+          <div class="commentbox" style="width: 890px;">
             <textarea cols="80" rows="50" placeholder="来说几句吧......" class="mytextarea"></textarea>
             <div class="btn btn-info pull-right" id="btn_comment">评论</div>
           </div>
@@ -119,7 +141,7 @@ if (!isset($_SESSION['views'])){
           <div class="comment-list">
           <?php foreach ($comments as $item): ?>
 
-             <div class="comment-info">
+             <div class="comment-info" >
               <header><img src="<?php echo $item['avatar']; ?>"></header>
               <div class="comment-right">
                 <h3><?php echo $item['user_nickname']; ?></h3>
@@ -139,6 +161,9 @@ if (!isset($_SESSION['views'])){
     </div>
   </div>
   <script src="/static/assets/vendors/jquery/jquery.js"></script>
+
+  <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/modal.js"></script>
+  <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/script.js"></script>
  
   <script src="/static/assets/vendors/ueditor/ueditor.config.js"></script>
   <script src="/static/assets/vendors/ueditor/ueditor.all.js"></script>
@@ -237,5 +262,7 @@ if (!isset($_SESSION['views'])){
         editor.setDisabled();
       });
   </script>
+  
+ 
 </body>
 </html>

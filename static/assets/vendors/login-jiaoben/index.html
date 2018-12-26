@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+<meta name="applicable-device" content="pc,mobile">
+<title>jQuery点击弹出登录窗口代码 - 站长素材</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">	
+<link rel="stylesheet" type="text/css" href="css/index.css"> 
+<link href="css/signin.css" rel="stylesheet">  
+
+</head>
+<body>
+
+<a class="a globalLoginBtn">登录</a>
+
+<div class="modal fade" id="loginModal" style="display:none;">
+	<div class="modal-dialog modal-sm" style="width:540px;">
+		<div class="signin">
+	<button type="button" id="login_close" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<div class="signin-head"><img src="images/test/head_120.png" alt="" class="img-circle"></div>
+			<form class="form-signin" role="form">
+				<input type="text" class="form-control" placeholder="用户名" required autofocus />
+				<input type="password" class="form-control" placeholder="密码" required />
+				<p class="good-tips marginB10">还没有账号？<a href="javascript:;" target="_blank" id="btnRegister">立即注册</a></p>
+				<button class="btn btn-lg btn-warning btn-block" type="submit">登录</button>	
+			</form>
+		</div>
+	</div>
+	
+</div>		
+
+<script type="text/javascript" src="js/jquery2.2.2.min.js"></script>
+<script type="text/javascript" src="js/modal.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+</div>
+</body>
+</html>

@@ -5,12 +5,11 @@ if (isset($_SESSION['views'])) {
   unset($_SESSION['views']);
 }
 
-
 $swipe_wrapper=json_decode(xiu_fetch_one("select * from options where site='home_slides';")['val'],true);
 $site_footer = xiu_fetch_one("select val from options where id = 6;");
 
-
  ?>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -18,9 +17,15 @@ $site_footer = xiu_fetch_one("select val from options where id = 6;");
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>阿里百秀，发现生活，发现美!</title>
    
+  <link rel="stylesheet" type="text/css" href="/static/assets/vendors/bootstrap/css/bootstrap.min.modify.css">  
+  <link rel="stylesheet" type="text/css" href="/static/assets/vendors/login-jiaoben/css/index.css"> 
+  <link href="/static/assets/vendors/login-jiaoben/css/signin.css" rel="stylesheet"> 
+
   <link rel="stylesheet" href="/static/assets/css/style.css">
   <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
 
+  
+ 
 </head>
 <body>
   <div class="wrapper">
@@ -229,6 +234,9 @@ $site_footer = xiu_fetch_one("select val from options where id = 6;");
   
   <script src="/static/assets/vendors/jquery/jquery.js"></script>
   <script src="/static/assets/vendors/swipe/swipe.js"></script>
+
+  <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/modal.js"></script>
+  <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/script.js"></script>
   <script>
     //
     var swiper = Swipe(document.querySelector('.swipe'), {
@@ -253,3 +261,4 @@ $site_footer = xiu_fetch_one("select val from options where id = 6;");
   </script>
 </body>
 </html>
+

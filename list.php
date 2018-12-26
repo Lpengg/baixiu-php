@@ -21,6 +21,10 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>阿里百秀-发现生活，发现美!</title>
+  <link rel="stylesheet" type="text/css" href="/static/assets/vendors/bootstrap/css/bootstrap.min.modify.css">  
+  <link rel="stylesheet" type="text/css" href="/static/assets/vendors/login-jiaoben/css/index.css"> 
+  <link href="/static/assets/vendors/login-jiaoben/css/signin.css" rel="stylesheet"> 
+
   <link rel="stylesheet" href="/static/assets/css/style.css">
   <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
 </head>
@@ -66,5 +70,9 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
       <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
     </div>
   </div>
+  <script src="/static/assets/vendors/jquery/jquery.js"></script>
+  <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/modal.js"></script>
+  <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/script.js"></script>
+ 
 </body>
 </html>

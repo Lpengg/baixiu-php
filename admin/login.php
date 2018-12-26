@@ -85,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD']==='GET'&&isset($_GET['action'])&&$_GET['action']=
   <div class="login">
     <!-- 可以通过在form上添加novalidate取消浏览器自带的校验功能 -->
     <!-- autocomplete="off"关闭客户端的自动完成功能 -->
-    <form class="login-wrap<?php echo isset($message)? ' shake animated':''; ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate autocomplete="off">
+    <form class="login-wrap<?php echo isset($message)? ' shake animated':''; ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate autocomplete="off"> 
       <img class="avatar" src="/static/assets/img/default.png">
-      <!-- 有错误信息时展示 -->
+      
       <?php if (isset($message)): ?>
          <div class="alert alert-danger">
         <?php echo $message; ?>

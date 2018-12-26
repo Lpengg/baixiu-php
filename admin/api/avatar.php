@@ -31,3 +31,4 @@ $row=mysqli_fetch_assoc($res);
 //3.echo
 echo $row['avatar'];
 
+
