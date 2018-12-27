@@ -570,7 +570,8 @@ img {
 
 .header .nav a:focus,
 .header .nav a:hover {
-  color: #444;
+  color: rgb(209, 26, 26);
+  background: #d5e0eb;
 }
 
 .header .nav a.active {
@@ -1206,7 +1207,6 @@ img {
 }
 
 .aside .random li {
-  height: 80px;
   padding: 10px 0;
 }
 
@@ -1248,7 +1248,6 @@ img {
 }
 
 .aside .discuz li {
-  height: 61px;
   padding: 10px 0;
 }
 

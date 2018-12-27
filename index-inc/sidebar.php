@@ -3,6 +3,7 @@ require_once 'functions.php';
 $current_user=xiu_get_index_user();
 
 
+
 ?>
   <div class="aside">
     <?php if (isset($current_user)): ?>
@@ -12,8 +13,8 @@ $current_user=xiu_get_index_user();
           <a href="/admin/index.php"><img  src="<?php echo $current_user['avatar']; ?>"></a>
           <span></span>
         </div>
-        <h3 class="name"><a href="/admin/index.php"><?php echo $current_user['nickname']; ?></a></h3>
-        <a class="login" id="btn_exit" href="../index-api/clear_user.php?id=1">退出</a>
+        <h3 class="name"><a href="/admin/index.php" style="text-decoration: none;"><?php echo $current_user['nickname']; ?></a></h3>
+        <a class="login" style="text-decoration: none;" id="btn_exit">退出</a>
        
       </div>
      <?php else: ?>
@@ -24,7 +25,7 @@ $current_user=xiu_get_index_user();
           <span></span>
         </div>
         <h3 class="name"><a href="#">游客</a></h3>
-        <a class="login a globalLoginBtn" style="color:white;">登录</a>
+        <button class="login a globalLoginBtn" style="color:white;" type="submit">登录</button>
         
       </div>
 
@@ -122,19 +123,6 @@ $current_user=xiu_get_index_user();
           <li>
             <a href="javascript:;" style="text-decoration: none;">
               <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_2.jpg" alt="">
-              </div>
-              <div class="txt">
-                <p>
-                  <span>鲜活</span>9个月前(08-14)说:
-                </p>
-                <p>挺会玩的</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" style="text-decoration: none;">
-              <div class="avatar">
                 <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
               </div>
               <div class="txt">
@@ -148,7 +136,7 @@ $current_user=xiu_get_index_user();
           <li>
             <a href="javascript:;" style="text-decoration: none;">
               <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_2.jpg" alt="">
+                <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
               </div>
               <div class="txt">
                 <p>
@@ -174,6 +162,7 @@ $current_user=xiu_get_index_user();
         </ul>
       </div> 
   </div>
+
   <!-- 登陆模块 -->
   <div class="modal fade" id="loginModal" style="display:none;">
   <div class="modal-dialog modal-sm" style="width:540px;">
@@ -257,6 +246,12 @@ $current_user=xiu_get_index_user();
             }
             
           });
+        });
+
+
+        $('#btn_exit').on('click', function() {
+           $.get('/index-api/logout.php'); 
+           location.reload();
         });
     });
 </script>

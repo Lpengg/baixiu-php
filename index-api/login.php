@@ -17,10 +17,8 @@ $user = xiu_fetch_one("select * from users where username = '{$username}' limit 
     return;
   }
 
-  //存一个登录标识
-  //$_SESSION['is_logind_in']=true;
-  //$_SESSION['current_login_user'] = $user;
-  $_SESSION['current_login_user'] = $user;
 
-  //一切ok 可以跳转
+  $_SESSION['current_login_user'] = $user;
+  
+ 
  

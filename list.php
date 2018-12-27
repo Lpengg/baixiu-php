@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
 
   <link rel="stylesheet" href="/static/assets/css/style.css">
   <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
+  
+
 </head>
 <body>
   <div class="wrapper">
@@ -38,14 +40,22 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
         <h3><?php echo $list[0]['name']; ?></h3>
 
         <?php foreach ($list as $item): ?>
-          <div class="entry" style="height: 200px;overflow: hidden;">
+          <div class="entry" style="height: 270px;overflow: hidden;">
           <div class="head">
             <a href="/detail.php?slug=<?php echo $_GET['slug']; ?>&id=<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a>
           </div>
-          <div class="main">
+          <div class="main" style="height: 185px;font-size: 18px;">
             <p class="info"><?php echo $item['username']; ?> 发表于 <?php echo $item['created']; ?></p>
             <p class="brief"><?php echo $item['content']; ?></p>
-            <p class="extra">
+            
+
+            
+            <a href="/detail.php?slug=<?php echo $_GET['slug']; ?>&id=<?php echo $item['id']; ?>" class="thumb">
+              <img src="<?php echo $item['feature']; ?>" alt="">
+            </a>
+          </div>
+          <div style="">
+             <p class="extra">
               <span class="reading">阅读(<?php echo $item['views']; ?>)</span>
               <span class="comment">评论(0)</span>
               <a href="javascript:;" class="like">
@@ -56,10 +66,8 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
                 分类：<span>星球大战</span>
               </a>
             </p>
-            <a href="/detail.php?slug=<?php echo $_GET['slug']; ?>&id=<?php echo $item['id']; ?>" class="thumb">
-              <img src="<?php echo $item['feature']; ?>" alt="">
-            </a>
           </div>
+         
         </div>
         <?php endforeach ?>
        
@@ -67,12 +75,13 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
       </div>
     </div>
     <div class="footer">
+
       <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
     </div>
   </div>
   <script src="/static/assets/vendors/jquery/jquery.js"></script>
   <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/modal.js"></script>
   <script type="text/javascript" src="/static/assets/vendors/login-jiaoben/js/script.js"></script>
- 
+
 </body>
 </html>

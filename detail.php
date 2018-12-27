@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
       $slug=$_GET['slug'];
 
       $id=$_GET['id'];
-      $post=xiu_fetch_one("SELECT * FROM posts,categories,users where posts.category_id=categories.id and posts.status='published' and categories.slug='{$slug}' and users.id=posts.user_id and posts.id={$id};");  
+      $post=xiu_fetch_one("SELECT posts.*,categories.name,users.nickname FROM posts,categories,users where posts.category_id=categories.id and posts.status='published' and categories.slug='{$slug}' and users.id=posts.user_id and posts.id={$id};");  
+      
       $comments = xiu_fetch("select comments.*,users.avatar from comments,users where comments.status='published' and post_id={$id} and users.username=comments.user_name ORDER BY comments.created DESC;");
       
     }
@@ -81,15 +82,16 @@ if (!isset($_SESSION['views'])){
           <a href="javascript:;"><?php echo $post['title']; ?></a>
         </h2>
         <div class="meta">
-          <span><?php echo $post['username']; ?> 发布于 <?php echo $post['created']; ?></span>
+          <span><?php echo $post['nickname']; ?> 发布于 <?php echo $post['created']; ?></span>
           <span>分类: <a href="/list.php?slug=<?php echo $_GET['slug']; ?>"><?php echo $post['name']; ?></a></span>
           <span>阅读: (<?php echo $post['views']; ?>)</span>
           <span>评论: (143)</span>
         </div>
       </div>
     <!--   <div class="panel post-content"><?php echo $post['content']; ?></div> -->
-       <div class="panel post-content">
-            <textarea id="content" class="" name="content" cols="30" rows="10"><?php echo $post['content']; ?></textarea>
+       <div class="panel post-content" style="font-size: 18px;color: black;">
+            <!-- <textarea id="content" class="" name="content" cols="30" rows="10"></textarea> -->
+            <?php echo $post['content']; ?>
           </div>
 
       <!-- 点赞开始 -->
@@ -133,7 +135,7 @@ if (!isset($_SESSION['views'])){
       </div>
 
       <div class="container" style="width: 900px;">
-          <div class="commentbox" style="width: 890px;">
+          <div class="commentbox" style="width: 890px;margin-left: -9px;">
             <textarea cols="80" rows="50" placeholder="来说几句吧......" class="mytextarea"></textarea>
             <div class="btn btn-info pull-right" id="btn_comment">评论</div>
           </div>
@@ -247,7 +249,7 @@ if (!isset($_SESSION['views'])){
       });
     })
      
-     var editor=UE.getEditor('content', {
+/*     var editor=UE.getEditor('content', {
         initialFrameHeight: 500,
         autoHeight: false,
         toolbars: [],
@@ -260,7 +262,7 @@ if (!isset($_SESSION['views'])){
       //不可编辑
 
         editor.setDisabled();
-      });
+      });*/
   </script>
   
  
