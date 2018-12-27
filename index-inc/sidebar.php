@@ -3,6 +3,22 @@ require_once 'functions.php';
 $current_user=xiu_get_index_user();
 
 
+function random_post(){
+  $posts=xiu_fetch("select posts.*,categories.slug from posts,categories where status = 'published' and posts.category_id=categories.id;");
+  
+  $randnum = array_rand($posts,10);  //这是一个只有数组索引的数组
+
+  $posts_rand=array();
+  foreach ($randnum as $i) {
+    $posts_rand[]=$posts[$i];
+  }
+  return $posts_rand;
+}
+
+
+$posts_rand = random_post();
+
+
 
 ?>
   <div class="aside">
@@ -31,7 +47,7 @@ $current_user=xiu_get_index_user();
 
     <?php endif ?>
     
-
+<!-- 搜索模块 -->
     <div class="widgets">
         <h4>搜索</h4>
         <div class="body search">
@@ -41,57 +57,26 @@ $current_user=xiu_get_index_user();
           </form>
         </div>
       </div>
+<!-- 随机推荐模块 -->
     <div class="widgets">
         <h4>随机推荐</h4>
         <ul class="body random">
-          <li>
-            <a href="javascript:;">
-              <p class="title">废灯泡的14种玩法 妹子见了都会心动</p>
-              <p class="reading">阅读(819)</p>
-              <div class="pic">
-                <img src="/static/uploads/widget_1.jpg" alt="">
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <p class="title">可爱卡通造型 iPhone 6防水手机套</p>
-              <p class="reading">阅读(819)</p>
-              <div class="pic">
-                <img src="/static/uploads/widget_2.jpg" alt="">
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <p class="title">变废为宝！将手机旧电池变为充电宝的Better</p>
-              <p class="reading">阅读(819)</p>
-              <div class="pic">
-                <img src="/static/uploads/widget_3.jpg" alt="">
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <p class="title">老外偷拍桂林芦笛岩洞 美如“地下彩虹”</p>
-              <p class="reading">阅读(819)</p>
-              <div class="pic">
-                <img src="/static/uploads/widget_4.jpg" alt="">
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <p class="title">doge神烦狗打底南瓜裤 就是如此魔性</p>
-              <p class="reading">阅读(819)</p>
-              <div class="pic">
-                <img src="/static/uploads/widget_5.jpg" alt="">
-              </div>
-            </a>
-          </li>
+          <?php foreach ($posts_rand as $item): ?>
+            <li>
+              <a href="/detail.php?slug=<?php echo $item['slug']; ?>&id=<?php echo $item['id']; ?>">
+                <p class="title"><?php echo $item['title']; ?></p>
+                <p class="reading">阅读(<?php echo $item['views']; ?>)</p>
+                <div class="pic">
+                  <img src="<?php echo $item['feature']; ?>" alt="">
+                </div>
+              </a>
+            </li>
+          <?php endforeach ?>
+         
+        
         </ul>
       </div>
-    <div class="widgets">
+    <!-- <div class="widgets">
       <h4>最新评论</h4>
       <ul class="body discuz">
           <li>
@@ -161,6 +146,9 @@ $current_user=xiu_get_index_user();
           </li>
         </ul>
       </div> 
+
+ -->
+
   </div>
 
   <!-- 登陆模块 -->

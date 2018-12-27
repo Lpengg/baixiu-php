@@ -8,6 +8,13 @@ if (isset($_SESSION['views'])) {
 $swipe_wrapper=json_decode(xiu_fetch_one("select * from options where site='home_slides';")['val'],true);
 $site_footer = xiu_fetch_one("select val from options where id = 6;");
 
+
+//一周热门排行数据
+$rankinglist=xiu_fetch("select posts.*,categories.slug from posts,categories where status='published' and posts.category_id=categories.id ORDER BY views DESC LIMIT 5;");
+//热门推荐
+
+$n=1;
+
  ?>
 
 <!DOCTYPE html>
@@ -90,36 +97,15 @@ $site_footer = xiu_fetch_one("select val from options where id = 6;");
       <div class="panel top">
         <h3>一周热门排行</h3>
         <ol>
-          <li>
-            <i>1</i>
-            <a href="javascript:;">你敢骑吗？全球第一辆全功能3D打印摩托车亮相</a>
-            <a href="javascript:;" class="like">赞(964)</a>
-            <span>阅读 (18206)</span>
-          </li>
-          <li>
-            <i>2</i>
-            <a href="javascript:;">又现酒窝夹笔盖新技能 城里人是不让人活了！</a>
-            <a href="javascript:;" class="like">赞(964)</a>
-            <span class="">阅读 (18206)</span>
-          </li>
-          <li>
-            <i>3</i>
-            <a href="javascript:;">实在太邪恶！照亮妹纸绝对领域与私处</a>
-            <a href="javascript:;" class="like">赞(964)</a>
-            <span>阅读 (18206)</span>
-          </li>
-          <li>
-            <i>4</i>
-            <a href="javascript:;">没有任何防护措施的摄影师在水下拍到了这些画面</a>
-            <a href="javascript:;" class="like">赞(964)</a>
-            <span>阅读 (18206)</span>
-          </li>
-          <li>
-            <i>5</i>
-            <a href="javascript:;">废灯泡的14种玩法 妹子见了都会心动</a>
-            <a href="javascript:;" class="like">赞(964)</a>
-            <span>阅读 (18206)</span>
-          </li>
+        	<?php foreach ($rankinglist as $item): ?>
+        		<li>
+          		  <i><?php echo $n;$n = $n+1 ?></i>
+          		  <a href="/detail.php?slug=<?php echo $item['slug']; ?>&id=<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a>
+          		  <span>赞(<?php echo $item['likes']; ?>)</span>
+          		  <span>阅读 (<?php echo $item['views']; ?>)</span>
+          		</li>
+
+        	<?php endforeach ?>  
         </ol>
       </div>
       <div class="panel hots">
