@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
 }
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
       <div class="panel new">
         <h3><?php echo $list[0]['name']; ?></h3>
 
-       <!--  <?php foreach ($list as $item): ?>
+        <?php foreach ($list as $item): ?>
           <div class="entry" style="height: 270px;overflow: hidden;">
           <div class="head">
             <a href="/detail.php?slug=<?php echo $_GET['slug']; ?>&id=<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a>
@@ -69,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD']==='GET') {
           </div>
          
         </div>
-        <?php endforeach ?> -->
+        <?php endforeach ?>
        
       
       </div>

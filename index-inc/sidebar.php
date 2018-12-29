@@ -15,10 +15,11 @@ function random_post(){
   return $posts_rand;
 }
 
-
+//随机推荐
 $posts_rand = random_post();
 
-
+//热门推荐
+$hot_recommend = xiu_fetch("select posts.*,categories.slug from posts,categories where status='published' and posts.category_id=categories.id ORDER BY likes DESC LIMIT 4;");
 
 ?>
   <div class="aside">
@@ -67,7 +68,7 @@ $posts_rand = random_post();
                 <p class="title"><?php echo $item['title']; ?></p>
                 <p class="reading">阅读(<?php echo $item['views']; ?>)</p>
                 <div class="pic">
-                  <img src="<?php echo $item['feature']; ?>" alt="">
+                  <img style="width: 70px;height:52px;" src="<?php echo $item['feature']; ?>" alt="">
                 </div>
               </a>
             </li>
@@ -76,78 +77,7 @@ $posts_rand = random_post();
         
         </ul>
       </div>
-    <!-- <div class="widgets">
-      <h4>最新评论</h4>
-      <ul class="body discuz">
-          <li>
-            <a href="javascript:;" style="text-decoration: none;">
-              <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
-              </div>
-              <div class="txt">
-                <p>
-                  <span>鲜活</span>9个月前(08-14)说:
-                </p>
-                <p>挺会玩的</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" style="text-decoration: none;">
-              <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
-              </div>
-              <div class="txt">
-                <p>
-                  <span>鲜活</span>9个月前(08-14)说:
-                </p>
-                <p>挺会玩的</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" style="text-decoration: none;">
-              <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
-              </div>
-              <div class="txt">
-                <p>
-                  <span>鲜活</span>9个月前(08-14)说:
-                </p>
-                <p>挺会玩的</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" style="text-decoration: none;">
-              <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
-              </div>
-              <div class="txt">
-                <p>
-                  <span>鲜活</span>9个月前(08-14)说:
-                </p>
-                <p>挺会玩的</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" style="text-decoration: none;">
-              <div class="avatar">
-                <img src="/static/uploads/avatars/avatar_1.jpg" alt="">
-              </div>
-              <div class="txt">
-                <p>
-                  <span>鲜活</span>9个月前(08-14)说:
-                </p>
-                <p>挺会玩的</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div> 
-
- -->
+   
 
   </div>
 

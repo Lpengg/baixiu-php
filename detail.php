@@ -78,8 +78,8 @@ if (!isset($_SESSION['views'])){
             <dd><?php echo $post['title']; ?></dd>
           </dl>
         </div>
-        <h2 class="title">
-          <a href="javascript:;"><?php echo $post['title']; ?></a>
+        <h2 class="title" style="text-align: center;">
+          <a style="text-decoration: none;" href="javascript:;"><?php echo $post['title']; ?></a>
         </h2>
         <div class="meta">
           <span><?php echo $post['nickname']; ?> 发布于 <?php echo $post['created']; ?></span>
@@ -103,34 +103,20 @@ if (!isset($_SESSION['views'])){
       <!--动态点赞结束-->
 
 
-
+<!-- 热门推荐 -->
       <div class="panel hots">
         <h3>热门推荐</h3>
         <ul>
-          <li>
-            <a href="javascript:;">
-              <img src="/static/uploads/hots_2.jpg" alt="">
-              <span>星球大战:原力觉醒视频演示 电影票68</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <img src="/static/uploads/hots_3.jpg" alt="">
-              <span>你敢骑吗？全球第一辆全功能3D打印摩托车亮相</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <img src="/static/uploads/hots_4.jpg" alt="">
-              <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;">
-              <img src="/static/uploads/hots_5.jpg" alt="">
-              <span>实在太邪恶！照亮妹纸绝对领域与私处</span>
-            </a>
-          </li>
+
+         <?php foreach ($hot_recommend as $item): ?>
+             <li>
+                <a href="/detail.php?slug=<?php echo $item['slug']; ?>&id=<?php echo $item['id']; ?>">
+                  <img style="width: 208px;height:132px;" src="<?php echo $item['feature']; ?>" alt="">
+                  <span><?php echo $item['title']; ?></span>
+                </a>
+              </li>
+          <?php endforeach ?>
+
         </ul>
       </div>
 
