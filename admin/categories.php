@@ -2,7 +2,7 @@
 require_once '../functions.php';
 
 //判断用户是否登录一定是最先去做
-xiu_get_current_user();
+
 
 //添加函数
 function add_categories(){

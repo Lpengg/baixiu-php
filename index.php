@@ -171,7 +171,7 @@ $n=1;
           		      <span>赞(<?php echo $item['likes']; ?>)</span>
           		    </a>
           		    <a href="javascript:;" class="tags">
-          		      分类：<span>星球大战</span>
+          		      分类：<span><?php echo $item['tags']; ?></span>
           		    </a>
           		  </p>
           		</div>

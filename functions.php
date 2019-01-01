@@ -26,7 +26,7 @@ require_once 'config.php';
 function xiu_get_current_user () {
   if (empty($_SESSION['current_login_user'])) {
     // 没有当前登录用户信息，意味着没有登录
-    header('Location: /admin/login.php');
+    header('Location: /index.php');
     exit(); // 没有必要再执行之后的代码
   }
   return $_SESSION['current_login_user'];

@@ -27,7 +27,7 @@ $categories[3]['slug']="miracle";
       <h1 class="logo"><a href="index.php"><img src="/static/assets/img/logo.png" alt=""></a></h1>
       <ul class="nav">
         <?php foreach ($categories as $item): ?>
-           <li><a href="/list.php?slug=<?php echo $item['slug']; ?>"><i class="<?php echo $item['icon']; ?>"></i><?php echo $item['text']; ?></a></li>
+           <li><a href="/list.php?slug=<?php echo $item['slug']; ?>&page=1"><i class="<?php echo $item['icon']; ?>"></i><?php echo $item['text']; ?></a></li>
         <?php endforeach ?>
      
 

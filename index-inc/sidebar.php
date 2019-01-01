@@ -52,12 +52,13 @@ $hot_recommend = xiu_fetch("select posts.*,categories.slug from posts,categories
     <div class="widgets">
         <h4>搜索</h4>
         <div class="body search">
-          <form>
-            <input type="text" class="keys" placeholder="输入关键字">
+          <form action="/list-search.php" method="post">
+            <input type="text" class="keys" name="keys" placeholder="输入关键字">
             <input type="submit" class="btn" value="搜索">
           </form>
         </div>
       </div>
+
 <!-- 随机推荐模块 -->
     <div class="widgets">
         <h4>随机推荐</h4>
@@ -94,7 +95,7 @@ $hot_recommend = xiu_fetch("select posts.*,categories.slug from posts,categories
 
         <input type="password" class="form-control" id="password" name="password" placeholder="密码" required />
 
-        <p class="good-tips marginB10">还没有账号？<a href="javascript:;" target="_blank" id="btnRegister">立即注册</a></p>
+        <p class="good-tips marginB10">还没有账号？<a href="/register.php" target="_blank" id="btnRegister">立即注册</a></p>
         
         <div class="login-box marginB10">
           <button id="login_btn" type="button" class="btn btn-lg btn-warning btn-block">登录</button> 

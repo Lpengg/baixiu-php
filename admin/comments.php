@@ -1,7 +1,7 @@
 <?php 
 require_once '../functions.php';
-//判断用户是否登录
-xiu_get_current_user();
+
+
 $link='sa';
    $arr=array(
     'icon' =>'$icon',
@@ -13,7 +13,7 @@ $link='sa';
  $a=[];
   array_push($a,$arr);
   $a=json_encode(array_push($a,$arr));
-  var_dump($a);
+ 
  ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -67,6 +67,7 @@ $link='sa';
     </div>
   </div>
 
+
   <?php $current_page = 'comments'; ?>
   <?php include 'inc/sidebar.php' ?>
 
@@ -79,7 +80,7 @@ $link='sa';
     {{for comments}}
        <tr {{if status == 'held'}} class="warning" {{else status == 'rejected'}} class="danger" {{/if}} data-id="{{:id}}">
             <td class="text-center"><input type="checkbox"></td>
-            <td>{{:author}}</td>
+            <td>{{:user_nickname}}</td>
             <td>{{:content}}</td>
             <td>{{:post_title}}</td>
             <td>{{:created}}</td>

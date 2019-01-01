@@ -41,7 +41,7 @@ if (!isset($_SESSION['views'])){
   <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
   <link type="text/css" rel="stylesheet" href="/static/assets/vendors/dianzan/Css/demo.css">
   <script type="text/javascript" src="/static/assets/vendors/dianzan/Js/jquery-1.8.3.min.js"></script>
-  
+  <!-- <link rel="stylesheet" type="text/css" href="/static/assets/vendors/bootstrap/css/bootstrap.min.modify.css">  -->
   <link rel="stylesheet" href="/static/assets/vendors/comments/css/bootstrap.css">
   <link rel="stylesheet" href="/static/assets/css/style.css">
   <link rel="stylesheet" href="/static/assets/vendors/comments/css/comment.css">
@@ -83,9 +83,9 @@ if (!isset($_SESSION['views'])){
         </h2>
         <div class="meta">
           <span><?php echo $post['nickname']; ?> 发布于 <?php echo $post['created']; ?></span>
-          <span>分类: <a href="/list.php?slug=<?php echo $_GET['slug']; ?>"><?php echo $post['name']; ?></a></span>
+          <span>标签: <a style="text-decoration: none;" href="javascript:;"><?php echo $post['tags']; ?></a></span>
           <span>阅读: (<?php echo $post['views']; ?>)</span>
-          <span>评论: (143)</span>
+          <span>评论: (<?php echo xiu_fetch_one("select count(id) as num from comments where post_id = '{$post["id"]}';")['num']; ?>)</span>
         </div>
       </div>
     <!--   <div class="panel post-content"><?php echo $post['content']; ?></div> -->
@@ -143,7 +143,7 @@ if (!isset($_SESSION['views'])){
           </div>
 
         </div>
-    </div>
+      </div>
     <div class="footer">
       <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
     </div>
@@ -160,23 +160,6 @@ if (!isset($_SESSION['views'])){
   <script type="text/javascript" src="/static/assets/vendors/comments/js/bootstrap.min.js"></script>
   <script>
     $(function(){
-       function getDate() {
-        var dt=new Date();
-        var year=dt.getFullYear();
-        var month=dt.getMonth()+1;
-        var day=dt.getDate();
-        var hour=dt.getHours();
-        var minute=dt.getMinutes();
-        var second=dt.getSeconds();
-        month=month < 10? "0" + month:month;
-        day=day < 10? "0" + day:day;
-        hour=hour < 10? "0" + hour:hour;
-        minute=minute < 10? "0" + minute:minute;
-        second=second < 10? "0" + second:second;
-        return year+"-"+month+"-"+day+"-"+hour+":"+minute+":"+second;
-    }
-
-    
       $('#btn_comment').on('click', function() {
         //1.是否登录
         <?php if (isset($current_user)): ?>
@@ -184,15 +167,14 @@ if (!isset($_SESSION['views'])){
        var nickname="<?php echo $current_user['nickname']; ?>";
 
         if($(this).prev().val()){
-           var created=getDate();
+          
           var comment_content=$(this).prev().val();
            d={post_id:<?php echo $post['id']; ?>,
             user_nickname:nickname,
             user_name:"<?php echo $current_user['username']; ?>",
-            created:created,
             content:comment_content
           }
-          console.log(d);
+      
           $.get('/index-api/add_comment.php',d)
           location.reload();
         }else{

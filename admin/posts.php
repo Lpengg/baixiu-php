@@ -32,7 +32,10 @@ function xiu_convert_date($created){
 
 
 //判断用户是否登录
-xiu_get_current_user();
+$login_user=xiu_get_current_user();
+
+
+
 
 //获取分类数据
 $categories=xiu_fetch("select * from categories;");
@@ -51,10 +54,7 @@ if (isset($_GET['status'])&&$_GET['status']!='all') {
   $where2 = "posts.status ='{$_GET['status']}'";
   $search = $search.'&status=' . $_GET['status'];
 }
-//var_dump($search);
-//&categories=2&status=published
 
-//$total_pages=>101
 
 //处理分页参数
 $page = empty($_GET['page']) ? 1:(int)$_GET['page'];
@@ -64,8 +64,18 @@ $size = 10;
 //计算出越过多少条
 $skip = ($page - 1) * $size;
 
-//最大页数$total_pages=ceil($total_count/$size)
-$total_count=xiu_fetch_one("select COUNT(1) as num from users,posts,categories where {$where} and {$where2} and users.id=posts.user_id and categories.id=posts.category_id;")['num'];
+
+
+if ($login_user['role'] === 'author') {
+  $user_id = $login_user['id'];
+  //最大页数$total_pages=ceil($total_count/$size)
+  $total_count=xiu_fetch_one("select COUNT(1) as num from users,posts,categories where {$where} and {$where2} and users.id=posts.user_id and categories.id=posts.category_id and users.id={$user_id};")['num'];
+}else{
+  //最大页数$total_pages=ceil($total_count/$size)
+  $total_count=xiu_fetch_one("select COUNT(1) as num from users,posts,categories where {$where} and {$where2} and users.id=posts.user_id and categories.id=posts.category_id;")['num'];
+}
+
+
 if (empty($total_count)) {
   $total_count=1;
 }
@@ -86,7 +96,13 @@ if ($page > $total_pages) {
 //获取全部数据 （方法一）
 /*$posts=xiu_fetch("select * from posts");*/
 //方法二 数据库连接查询
-$posts=xiu_fetch("select posts.id,title,posts.status,posts.created,nickname,name from users,posts,categories  where {$where} and {$where2} and users.id=posts.user_id and categories.id=posts.category_id ORDER BY posts.created desc LIMIT {$skip},{$size};");
+if ($login_user['role'] === 'author') {
+  $user_id = $login_user['id'];
+  $posts=xiu_fetch("select posts.id,title,posts.status,posts.created,nickname,name from users,posts,categories  where {$where} and {$where2} and users.id=posts.user_id and categories.id=posts.category_id and users.id={$user_id} ORDER BY posts.created desc LIMIT {$skip},{$size};");
+}else{
+  $posts=xiu_fetch("select posts.id,title,posts.status,posts.created,nickname,name from users,posts,categories  where {$where} and {$where2} and users.id=posts.user_id and categories.id=posts.category_id ORDER BY posts.created desc LIMIT {$skip},{$size};");
+}
+
 
 
 //处理分页页码------------------

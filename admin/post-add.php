@@ -5,7 +5,7 @@ xiu_get_current_user();
 
 //编辑文章
 function edit_post($post){
-  if (empty($_POST['slug'])
+  if (empty($_POST['tags'])
     || empty($_POST['title'])
     || empty($_POST['created'])
     || empty($_POST['content'])
@@ -17,7 +17,7 @@ function edit_post($post){
    //获取当前登录的用户信息
   $user_id=(int)$_SESSION['current_login_user']['id'];
   //获取数据
-  $slug=$_POST['slug'];
+  $tags=$_POST['tags'];
   $title=$_POST['title'];
   $content=$_POST['content'];
   $category_id = $_POST['category'];
@@ -43,7 +43,7 @@ function edit_post($post){
      } 
   }
 
-  $affect_rows=xiu_execute("update posts set slug='{$slug}',title='{$title}',feature='{$feature}',created='{$created}',content='{$content}',status='{$status}',user_id={$user_id},category_id={$category_id} where id={$id};");
+  $affect_rows=xiu_execute("update posts set tags='{$tags}',title='{$title}',feature='{$feature}',created='{$created}',content='{$content}',status='{$status}',user_id={$user_id},category_id={$category_id} where id={$id};");
 
   if ($affect_rows >0) {
     header('Location:/admin/posts.php');
@@ -55,7 +55,7 @@ function edit_post($post){
 
 //添加文章
 function add_post(){
-  if (empty($_POST['slug'])
+  if (empty($_POST['tags'])
     || empty($_POST['title'])
     || empty($_POST['created'])
     || empty($_POST['content'])
@@ -68,7 +68,7 @@ function add_post(){
   //获取当前登录的用户信息
   $user_id=(int)$_SESSION['current_login_user']['id'];
   //获取数据
-  $slug=$_POST['slug'];
+  $tags=$_POST['tags'];
   $title=$_POST['title'];
   $content=htmlspecialchars_decode($_POST['content']);
 
@@ -76,12 +76,7 @@ function add_post(){
   $created=$_POST['created'];
   $status=$_POST['status'];
 
-  if ((int)xiu_fetch_one("select count(1) as num from posts where slug='{$slug}';")['num'] > 0) {
-    // slug 重复
-    $GLOBALS['message'] = '别名已经存在，请修改别名';
-    return;
-  } 
-  if ((int)xiu_fetch_one("select count(1) as num from posts where slug='{$title}';")['num'] > 0) {
+  if ((int)xiu_fetch_one("select count(1) as num from posts where title='{$title}';")['num'] > 0) {
     //标题重复
     $GLOBALS['message'] = '标题已经存在，请修改标题';
     return;
@@ -106,7 +101,7 @@ function add_post(){
  
   $sql = sprintf(
       "insert into posts values (null, '%s', '%s', '%s', '%s', '%s', 0, 0, '%s', %d, %d)",
-      $slug,
+      $tags,
       $title,
       $feature,
       $created,
@@ -190,9 +185,9 @@ $categories=xiu_fetch("select * from categories;");
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="slug">别名</label>
-            <input id="slug" class="form-control" name="slug" type="text" value="<?php echo $post['slug']; ?>">
-            <!-- <p class="help-block">https://zce.me/post/<strong>slug</strong></p> -->
+            <label for="tags">标签</label>
+            <input id="tags" class="form-control" name="tags" type="text" value="<?php echo $post['tags']; ?>">
+            <!-- <p class="help-block">https://zce.me/post/<strong>tags</strong></p> -->
           </div>
           <div class="form-group">
             <label for="feature">特色图像</label>
@@ -239,9 +234,9 @@ $categories=xiu_fetch("select * from categories;");
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="slug">别名</label>
-            <input id="slug" class="form-control" name="slug" type="text" placeholder="slug">
-            <!-- <p class="help-block">https://zce.me/post/<strong>slug</strong></p> -->
+            <label for="tags">标签</label>
+            <input id="tags" class="form-control" name="tags" type="text" placeholder="tags">
+            <!-- <p class="help-block">https://zce.me/post/<strong>tags</strong></p> -->
           </div>
           <div class="form-group">
             <label for="feature">特色图像</label>
